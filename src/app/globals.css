@@ -1,0 +1,9 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.gradient-login {
+  height: 100vh;
+  width: 100vw;
+  background: linear-gradient(135deg, hsla(203, 98%, 24%, 1) 0%, hsla(303, 51%, 14%, 1) 80%);
+}
