@@ -12,6 +12,7 @@ type Count = {
   cont_man1: number;
   cont_man2: number;
   cont_sif: number;
+  cont_chillers: number;
   datahora: string;
 };
 
@@ -75,9 +76,9 @@ export default function Dashboard() {
                 count.datahora
               )}`}</p>
             </div>
-            <div className="grid grid-cols-2 gap-4 mt-4">
-              <div>
-                <div className="flex flex-row items-center">
+            <div className="flex justify-around">
+              <div className="flex flex-col gap-2">
+                <div className="flex flex-row items-center gap-2">
                   <h3 className="text-3xl font-semibold mb-2">Contadores</h3>
                   <Image
                     src="/frango.png"
@@ -93,8 +94,9 @@ export default function Dashboard() {
                 <p className="text-xl">Noria Automática: {count.cont_aut}</p>
                 <p className="text-xl">Noria Manual 1: {count.cont_man1}</p>
                 <p className="text-xl">Noria Manual 2: {count.cont_man2}</p>
+                <p className="text-xl">Chillers: {count.cont_chillers}</p>
               </div>
-              <div>
+              <div className="flex flex-col gap-2">
                 <div className="flex flex-row items-center">
                   <h3 className="text-3xl font-semibold mb-2">Velocidades</h3>
                   <Image
@@ -115,7 +117,7 @@ export default function Dashboard() {
             </div>
           </div>
         </div>
-        <div className="flex flex-row gap-4 mt-4">
+        <div className="flex flex-row gap-4 mt-4 justify-around">
           <div className="bg-gray-900 shadow-md p-4 rounded-lg">
             <div className="flex flex-row items-center">
               <h3 className="text-lg font-semibold mb-2">Sangria</h3>
@@ -131,7 +133,7 @@ export default function Dashboard() {
           </div>
           <div className="bg-gray-900 shadow-md p-4 rounded-lg">
             <div className="flex flex-row items-center">
-              <h3 className="text-lg font-semibold mb-2">Dados Adicionais 1</h3>
+              <h3 className="text-lg font-semibold mb-2">Escaldagem</h3>
               <Image
                 src="/frango.png"
                 width={50}
@@ -143,7 +145,7 @@ export default function Dashboard() {
           </div>
           <div className="bg-gray-900 shadow-md p-4 rounded-lg">
             <div className="flex flex-row items-center">
-              <h3 className="text-lg font-semibold mb-2">Dados Adicionais 1</h3>
+              <h3 className="text-lg font-semibold mb-2">Eviceração</h3>
               <Image
                 src="/frango.png"
                 width={50}
@@ -155,7 +157,7 @@ export default function Dashboard() {
           </div>
           <div className="bg-gray-900 shadow-md p-4 rounded-lg">
             <div className="flex flex-row items-center">
-              <h3 className="text-lg font-semibold mb-2">Dados Adicionais 1</h3>
+              <h3 className="text-lg font-semibold mb-2">Pré Resfriamento</h3>
               <Image
                 src="/frango.png"
                 width={50}
@@ -167,7 +169,7 @@ export default function Dashboard() {
           </div>
           <div className="bg-gray-900 shadow-md p-4 rounded-lg">
             <div className="flex flex-row items-center">
-              <h3 className="text-lg font-semibold mb-2">Dados Adicionais 1</h3>
+              <h3 className="text-lg font-semibold mb-2">Sala de Cortes</h3>
               <Image
                 src="/frango.png"
                 width={50}
