@@ -27,9 +27,8 @@ type Speed = {
 };
 
 const formatDateTime = (date: string) => {
+  if(!date) return "";
   const dateObj = new Date(date);
-
-  // format dd/mm/yyyy hh:mm:ss
 
   const day = dateObj.getDate();
   const month = dateObj.getMonth() + 1;
@@ -61,7 +60,7 @@ export default function Dashboard() {
       httpClient.get("/metrics/count").then((response) => {
         setCount(response[0]);
       });
-    }, 5000);
+    }, 60000);
     return () => clearInterval(interval);
   }, [httpClient]);
 
