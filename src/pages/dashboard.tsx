@@ -52,25 +52,33 @@ export default function Dashboard() {
   const [speed, setSpeed] = useState<Speed>({} as Speed);
   const [usernameError, setUsernameError] = useState(false);
 
-  useEffect(() => {
-    const interval = setInterval(() => {
+  useEffect(() => {    
+    const fetchSpeed = () => {
       httpClient.get("/metrics/speed").then((response) => {
         setSpeed(response[0]);
       });
+    };
+    const fetchCount = () => {
       httpClient.get("/metrics/count").then((response) => {
         setCount(response[0]);
       });
+    };
+    fetchSpeed();
+    fetchCount();
+    const interval = setInterval(() => {
+      fetchSpeed();
+      fetchCount();
     }, 60000);
     return () => clearInterval(interval);
-  }, [httpClient]);
+  }, []);
 
-  return (
+    return (
     <div className="bg-gray-800 text-white min-h-screen p-6">
       <div className="container mx-auto">
         <div className="">
           <div className="bg-gray-900 shadow-md p-6 rounded-lg">
             <div className="flex flex-col items-center">
-              <h2 className="text-5xl font-semibold mb-2">Dashboard</h2>
+              <h2 className="text-5xl font-semibold mb-2">Dashboard - FAQUI</h2>
               <p className="text-gray-400">{`Última atualização: ${formatDateTime(
                 count.datahora
               )}`}</p>
@@ -88,11 +96,11 @@ export default function Dashboard() {
                 </div>
 
                 <p className="text-xl">Escaldagem: {count.cont_esc}</p>
-                <p className="text-xl">Esvisceração: {count.cont_evc}</p>
-                <p className="text-xl">SIF: {count.cont_sif}</p>
-                <p className="text-xl">Noria Automática: {count.cont_aut}</p>
-                <p className="text-xl">Noria Manual 1: {count.cont_man1}</p>
-                <p className="text-xl">Noria Manual 2: {count.cont_man2}</p>
+                <p className="text-xl">Evisceração: {count.cont_evc}</p>
+                <p className="text-xl">Inspeção Federal: {count.cont_sif}</p>
+                <p className="text-xl">Nória Automática: {count.cont_aut}</p>
+                <p className="text-xl">Nória Manual 1: {count.cont_man1}</p>
+                <p className="text-xl">Nória Manual 2: {count.cont_man2}</p>
                 <p className="text-xl">Chillers: {count.cont_chillers}</p>
               </div>
               <div className="flex flex-col gap-2">
@@ -106,12 +114,12 @@ export default function Dashboard() {
                   />
                 </div>
                 <p className="text-xl">
-                  Escaldagem/Eviseração: {speed.vel_esc_evc}
+                  Escaldagem/Evisceração: {speed.vel_esc_evc}
                 </p>
-                <p className="text-xl">SIF: {speed.vel_sif}</p>
-                <p className="text-xl">Noria Automática: {speed.vel_aut}</p>
-                <p className="text-xl">Noria Manual 1: {speed.vel_man1}</p>
-                <p className="text-xl">Noria Manual 2: {speed.vel_man2}</p>
+                <p className="text-xl">Inspeção Federal: {speed.vel_sif}</p>
+                <p className="text-xl">Nória Automática: {speed.vel_aut}</p>
+                <p className="text-xl">Nória Manual 1: {speed.vel_man1}</p>
+                <p className="text-xl">Nória Manual 2: {speed.vel_man2}</p>
               </div>
             </div>
           </div>
@@ -122,8 +130,8 @@ export default function Dashboard() {
               <h3 className="text-lg font-semibold mb-2">Sangria</h3>
               <Image
                 src="/Sangria.png"
-                width={50}
-                height={50}
+                width={30}
+                height={30}
                 alt={"asd"}
               />
             </div>
@@ -134,9 +142,9 @@ export default function Dashboard() {
             <div className="flex flex-row items-center">
               <h3 className="text-lg font-semibold mb-2">Escaldagem</h3>
               <Image
-                src="/frango.png"
-                width={50}
-                height={50}
+                src="/Escaldagem.png"
+                width={30}
+                height={30}
                 alt={"asd"}
               />
             </div>
@@ -146,9 +154,9 @@ export default function Dashboard() {
             <div className="flex flex-row items-center">
               <h3 className="text-lg font-semibold mb-2">Eviceração</h3>
               <Image
-                src="/frango.png"
-                width={50}
-                height={50}
+                src="/Evisceracao.png"
+                width={30}
+                height={30}
                 alt={"asd"}
               />
             </div>
@@ -158,9 +166,9 @@ export default function Dashboard() {
             <div className="flex flex-row items-center">
               <h3 className="text-lg font-semibold mb-2">Pré Resfriamento</h3>
               <Image
-                src="/frango.png"
-                width={50}
-                height={50}
+                src="/pre.png"
+                width={30}
+                height={30}
                 alt={"asd"}
               />
             </div>
@@ -170,9 +178,9 @@ export default function Dashboard() {
             <div className="flex flex-row items-center">
               <h3 className="text-lg font-semibold mb-2">Sala de Cortes</h3>
               <Image
-                src="/frango.png"
-                width={50}
-                height={50}
+                src="/Cortes.png"
+                width={30}
+                height={30}
                 alt={"asd"}
               />
             </div>
