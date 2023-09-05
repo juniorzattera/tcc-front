@@ -5,8 +5,8 @@ import { Inter } from 'next/font/google'
 const inter = Inter({ subsets: ['latin'] })
 
 export const metadata: Metadata = {
-  title: 'Aurora',
-  description: 'Aurora is a Next.js starter kit with TypeScript and Tailwind CSS.',
+  title: 'Aurora - FAQUI',
+  description: 'Dasboard Aurora - FAQUI',
 }
 
 export default function RootLayout({

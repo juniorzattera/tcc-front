@@ -125,66 +125,75 @@ export default function Dashboard() {
           </div>
         </div>
         <div className="flex flex-row gap-4 mt-4 justify-around">
-          <div className="bg-gray-900 shadow-md p-4 rounded-lg">
-            <div className="flex flex-row items-center">
-              <h3 className="text-lg font-semibold mb-2">Sangria</h3>
+        <div className="bg-gray-900 shadow-md p-4 rounded-lg">
+            <div className="flex flex-col items-center">
+              <div className="mb-2">
               <Image
-                src="/Sangria.png"
-                width={30}
-                height={30}
+                src="/sangria.png"
+                width={40}
+                height={40}
                 alt={"asd"}
+                className="mx-auto"
               />
+              </div>
+              <h3 className="text-2xl font-semibold mb-2">Sangria</h3>              
             </div>
-
-            {/* ... conteúdo dos dados adicionais 1 ... */}
           </div>
           <div className="bg-gray-900 shadow-md p-4 rounded-lg">
-            <div className="flex flex-row items-center">
-              <h3 className="text-lg font-semibold mb-2">Escaldagem</h3>
+            <div className="flex flex-col items-center">
+              <div className="mb-2">
               <Image
                 src="/Escaldagem.png"
-                width={30}
-                height={30}
+                width={40}
+                height={40}
                 alt={"asd"}
+                className="mx-auto"
               />
+              </div>
+              <h3 className="text-2xl font-semibold mb-2">Escaldagem</h3>              
             </div>
-            {/* ... conteúdo dos dados adicionais 2 ... */}
           </div>
           <div className="bg-gray-900 shadow-md p-4 rounded-lg">
-            <div className="flex flex-row items-center">
-              <h3 className="text-lg font-semibold mb-2">Eviceração</h3>
+            <div className="flex flex-col items-center">
+              <div className="mb-2">
               <Image
                 src="/Evisceracao.png"
-                width={30}
-                height={30}
+                width={40}
+                height={40}
                 alt={"asd"}
+                className="mx-auto"
               />
+              </div>
+              <h3 className="text-2xl font-semibold mb-2">Evisceração</h3>              
             </div>
-            {/* ... conteúdo dos dados adicionais 1 ... */}
           </div>
           <div className="bg-gray-900 shadow-md p-4 rounded-lg">
-            <div className="flex flex-row items-center">
-              <h3 className="text-lg font-semibold mb-2">Pré Resfriamento</h3>
+            <div className="flex flex-col items-center">
+              <div className="mb-2">
               <Image
-                src="/pre.png"
-                width={30}
-                height={30}
+                src="/preresfriamento.png"
+                width={40}
+                height={40}
                 alt={"asd"}
+                className="mx-auto"
               />
+              </div>
+              <h3 className="text-2xl font-semibold mb-2">Pré Resfriamento</h3>              
             </div>
-            {/* ... conteúdo dos dados adicionais 2 ... */}
           </div>
           <div className="bg-gray-900 shadow-md p-4 rounded-lg">
-            <div className="flex flex-row items-center">
-              <h3 className="text-lg font-semibold mb-2">Sala de Cortes</h3>
+            <div className="flex flex-col items-center">
+              <div className="mb-2">
               <Image
                 src="/Cortes.png"
-                width={30}
-                height={30}
+                width={40}
+                height={40}
                 alt={"asd"}
+                className="mx-auto"
               />
+              </div>
+              <h3 className="text-2xl font-semibold mb-2">Sala de Cortes</h3>              
             </div>
-            {/* ... conteúdo dos dados adicionais 2 ... */}
           </div>
         </div>
       </div>
