@@ -72,9 +72,9 @@ export default function Dashboard() {
     return () => clearInterval(interval);
   }, []);
 
-    return (
+  return (
     <div className="bg-gray-800 text-white min-h-screen p-6">
-      <div className="container mx-auto">
+      <div className="container mx-auto">        
         <div className="">
           <div className="bg-gray-900 shadow-md p-6 rounded-lg">
             <div className="flex flex-col items-center">
@@ -143,7 +143,7 @@ export default function Dashboard() {
             <div className="flex flex-col items-center">
               <div className="mb-2">
               <Image
-                src="/Escaldagem.png"
+                src="/aguaquente.png"
                 width={40}
                 height={40}
                 alt={"asd"}
@@ -156,15 +156,15 @@ export default function Dashboard() {
           <div className="bg-gray-900 shadow-md p-4 rounded-lg">
             <div className="flex flex-col items-center">
               <div className="mb-2">
-              <Image
-                src="/Evisceracao.png"
-                width={40}
-                height={40}
-                alt={"asd"}
-                className="mx-auto"
-              />
+                <Image
+                  src="/figado.png"
+                  width={40}
+                  height={40}
+                  alt={"asd"}
+                  className="mx-auto"
+                />
               </div>
-              <h3 className="text-2xl font-semibold mb-2">Evisceração</h3>              
+              <h3 className="text-2xl font-semibold mb-2">Evisceração</h3>
             </div>
           </div>
           <div className="bg-gray-900 shadow-md p-4 rounded-lg">
@@ -179,20 +179,6 @@ export default function Dashboard() {
               />
               </div>
               <h3 className="text-2xl font-semibold mb-2">Pré Resfriamento</h3>              
-            </div>
-          </div>
-          <div className="bg-gray-900 shadow-md p-4 rounded-lg">
-            <div className="flex flex-col items-center">
-              <div className="mb-2">
-              <Image
-                src="/Cortes.png"
-                width={40}
-                height={40}
-                alt={"asd"}
-                className="mx-auto"
-              />
-              </div>
-              <h3 className="text-2xl font-semibold mb-2">Sala de Cortes</h3>              
             </div>
           </div>
         </div>
