@@ -27,7 +27,7 @@ type Speed = {
 };
 
 const formatDateTime = (date: string) => {
-  if(!date) return "";
+  if (!date) return "";
   const dateObj = new Date(date);
 
   const day = dateObj.getDate();
@@ -51,8 +51,12 @@ export default function Dashboard() {
   const [count, setCount] = useState<Count>({} as Count);
   const [speed, setSpeed] = useState<Speed>({} as Speed);
   const [usernameError, setUsernameError] = useState(false);
+  const [statusSangria, setStatusSangria] = useState(false);
+  const colors = Array.from({ length: 24 }, () =>
+    Math.random() < 0.5 ? "bg-green-500" : "bg-red-500"
+  );
 
-  useEffect(() => {    
+  useEffect(() => {
     const fetchSpeed = () => {
       httpClient.get("/metrics/speed").then((response) => {
         setSpeed(response[0]);
@@ -63,8 +67,19 @@ export default function Dashboard() {
         setCount(response[0]);
       });
     };
+    const fetchPing = () => {
+      httpClient.get("/metrics/ping").then((response) => {
+        if (response[0].camera_sangria === 0) {
+          setStatusSangria(true);
+        } else {
+          setStatusSangria(false);
+        }
+      });
+    }
+
     fetchSpeed();
     fetchCount();
+    fetchPing();
     const interval = setInterval(() => {
       fetchSpeed();
       fetchCount();
@@ -73,8 +88,8 @@ export default function Dashboard() {
   }, []);
 
   return (
-    <div className="bg-gray-800 text-white min-h-screen p-6">
-      <div className="container mx-auto">        
+    <div className="bg-gray-800 text-white min-h-screen flex flex-row p-6">
+      <div className="container mx-auto">
         <div className="">
           <div className="bg-gray-900 shadow-md p-6 rounded-lg">
             <div className="flex flex-col items-center">
@@ -87,12 +102,7 @@ export default function Dashboard() {
               <div className="flex flex-col gap-2">
                 <div className="flex flex-row items-center gap-2">
                   <h3 className="text-3xl font-semibold mb-2">Contadores</h3>
-                  <Image
-                    src="/frango.png"
-                    width={50}
-                    height={50}
-                    alt={"asd"}
-                  />
+                  <Image src="/frango.png" width={50} height={50} alt={"asd"} />
                 </div>
 
                 <p className="text-xl">Escaldagem: {count.cont_esc}</p>
@@ -106,12 +116,7 @@ export default function Dashboard() {
               <div className="flex flex-col gap-2">
                 <div className="flex flex-row items-center">
                   <h3 className="text-3xl font-semibold mb-2">Velocidades</h3>
-                  <Image
-                    src="/raio.png"
-                    width={50}
-                    height={50}
-                    alt={"asd"}
-                  />
+                  <Image src="/raio.png" width={50} height={50} alt={"asd"} />
                 </div>
                 <p className="text-xl">
                   Escaldagem/Evisceração: {speed.vel_esc_evc}
@@ -125,32 +130,63 @@ export default function Dashboard() {
           </div>
         </div>
         <div className="flex flex-row gap-4 mt-4 justify-around">
-        <div className="bg-gray-900 shadow-md p-4 rounded-lg">
+          <div className="bg-gray-900 shadow-md p-4 rounded-lg">
             <div className="flex flex-col items-center">
               <div className="mb-2">
-              <Image
-                src="/sangria.png"
-                width={40}
-                height={40}
-                alt={"asd"}
-                className="mx-auto"
-              />
+                <Image
+                  src="/Sangria.png"
+                  width={40}
+                  height={40}
+                  alt={"asd"}
+                  className="mx-auto"
+                />
               </div>
-              <h3 className="text-2xl font-semibold mb-2">Sangria</h3>              
+              <h3 className="text-2xl font-semibold mb-2">Sangria</h3>
+              <div className="flex flex-col gap-4">
+                <div>
+                  <p className="text-xl">Sistema de Detecção de </p>
+                  <p className="text-xl">Frangos Mal Sangrados</p>
+                </div>
+
+                <p className="text-xl text-center">Status</p>
+                {statusSangria ? (
+                  <div className="flex w-full items-center justify-center gap-2">
+                    <p className="">Conectado</p>
+                    <Image
+                      src="/true.png"
+                      width={20}
+                      height={20}
+                      alt={"asd"}
+                      className=""
+                    />
+                  </div>
+                ) : (
+                  <div className="flex w-full items-center justify-center gap-2">
+                    <p className="">Desconectado</p>
+                    <Image
+                      src="/false.png"
+                      width={20}
+                      height={20}
+                      alt={"asd"}
+                      className=""
+                    />
+                  </div>
+                )}
+              </div>
             </div>
           </div>
           <div className="bg-gray-900 shadow-md p-4 rounded-lg">
             <div className="flex flex-col items-center">
               <div className="mb-2">
-              <Image
-                src="/aguaquente.png"
-                width={40}
-                height={40}
-                alt={"asd"}
-                className="mx-auto"
-              />
+                <Image
+                  src="/aguaquente.png"
+                  width={40}
+                  height={40}
+                  alt={"asd"}
+                  className="mx-auto"
+                />
               </div>
-              <h3 className="text-2xl font-semibold mb-2">Escaldagem</h3>              
+              <h3 className="text-2xl font-semibold mb-2">Escaldagem</h3>
             </div>
           </div>
           <div className="bg-gray-900 shadow-md p-4 rounded-lg">
@@ -165,20 +201,28 @@ export default function Dashboard() {
                 />
               </div>
               <h3 className="text-2xl font-semibold mb-2">Evisceração</h3>
+              <div className="grid grid-cols-6 gap-4 grid-rows-4">
+                {colors.map((color, index) => (
+                  <div
+                    key={index}
+                    className={`w-8 h-8 ${color} rounded-md`}
+                  ></div>
+                ))}
+              </div>
             </div>
           </div>
           <div className="bg-gray-900 shadow-md p-4 rounded-lg">
             <div className="flex flex-col items-center">
               <div className="mb-2">
-              <Image
-                src="/preresfriamento.png"
-                width={40}
-                height={40}
-                alt={"asd"}
-                className="mx-auto"
-              />
+                <Image
+                  src="/preresfriamento.png"
+                  width={40}
+                  height={40}
+                  alt={"asd"}
+                  className="mx-auto"
+                />
               </div>
-              <h3 className="text-2xl font-semibold mb-2">Pré Resfriamento</h3>              
+              <h3 className="text-2xl font-semibold mb-2">Pré Resfriamento</h3>
             </div>
           </div>
         </div>
