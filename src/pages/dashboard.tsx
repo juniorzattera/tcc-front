@@ -1,5 +1,5 @@
 "use client";
-
+import 'tailwindcss/tailwind.css';
 import React, { useState, useEffect } from "react";
 import { HttpClient } from "@/infra/HttpClient";
 import Image from "next/image";

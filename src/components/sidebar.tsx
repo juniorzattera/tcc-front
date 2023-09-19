@@ -1,12 +1,12 @@
 "use client";
-
+import 'tailwindcss/tailwind.css';
 import React from "react";
-import { Link } from "react-router-dom";
+import Link from 'next/link';
 
 const ButtonLink = ({ children, to, ...props }: {children: string, to: string}) => {
     return (
         <Link
-        to={to}
+        href={to}
         {...props}
         className="flex items-center mt-5 px-4 py-2 text-gray-700 rounded dark:text-gray-200 dark:hover:bg-gray-600 dark:hover:text-white hover:bg-gray-100 hover:text-gray-900"
         >

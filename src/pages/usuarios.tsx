@@ -1,5 +1,5 @@
 "use client";
-
+import 'tailwindcss/tailwind.css';
 import React, { useState } from "react";
 
 const EditModal = ({ user, onClose, onSave }) => {
