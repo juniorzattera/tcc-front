@@ -7,9 +7,9 @@ import Sidebar from "@/components/sidebar";
 
 export default function Home() {
   return (
-      <div className="flex flex-row">
+      <div className="flex flex-row ">
         <Sidebar />
-        <div className="flex-1">
+        <div className="flex-1 ">
           <Dashboard />
         </div>
       </div>

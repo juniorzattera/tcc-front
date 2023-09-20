@@ -8,7 +8,7 @@ const ButtonLink = ({ children, to, ...props }: {children: string, to: string}) 
         <Link
         href={to}
         {...props}
-        className="flex items-center mt-5 px-4 py-2 text-gray-700 rounded dark:text-gray-200 dark:hover:bg-gray-600 dark:hover:text-white hover:bg-gray-100 hover:text-gray-900"
+        className="flex items-center mt-5 px-1 py-2  text-white"
         >
         <span className="mx-4 font-medium">{children}</span>
         </Link>
@@ -17,27 +17,23 @@ const ButtonLink = ({ children, to, ...props }: {children: string, to: string}) 
 
 const Sidebar = () => {
     return (
-        <div className="flex flex-col w-64 h-screen px-4 py-8 bg-white border-r dark:bg-gray-800 dark:border-gray-600">
-            <h2 className="text-3xl font-semibold text-gray-800 dark:text-white">Menu</h2>
+        <div className="items-center justify-center flex flex-col py-8 bg-gray-800">
+            <h2 className="text-3xl font-semibold text-white">Menu</h2>
 
-            <div className="flex flex-col justify-between flex-1 mt-6">
+            <div className="flex flex-col justify-between flex-1 mt-1">
                 <nav>
                 <ButtonLink to="/dashboard">Dashboard</ButtonLink>
 
-                <a className="flex items-center mt-5 px-4 py-2 text-gray-700 rounded dark:text-gray-200 dark:hover:bg-gray-600 dark:hover:text-white hover:bg-gray-100 hover:text-gray-900" href="#">
+                <a className="flex items-center mt-5 px-1 py-2  text-white" href="#">
                     <span className="mx-4 font-medium">Eviceração</span>
-                </a>
+                </a>                
 
-                <a className="flex items-center mt-5 px-4 py-2 text-gray-700 rounded dark:text-gray-200 dark:hover:bg-gray-600 dark:hover:text-white hover:bg-gray-100 hover:text-gray-900" href="#">
-                    <span className="mx-4 font-medium">Acumulados Turnos</span>
-                </a>
-                <a className="flex items-center mt-5 px-4 py-2 text-gray-700 rounded dark:text-gray-200 dark:hover:bg-gray-600 dark:hover:text-white hover:bg-gray-100 hover:text-gray-900" href="#">
+                <a className="flex items-center mt-5 px-1 py-2  text-white" href="http://121.1.17.170" target="_blank">
                     <span className="mx-4 font-medium">Marel</span>
-                </a>
-                <a className="flex items-center mt-5 px-4 py-2 text-gray-700 rounded dark:text-gray-200 dark:hover:bg-gray-600 dark:hover:text-white hover:bg-gray-100 hover:text-gray-900" href="#">
+                    </a>
+                <a className="flex items-center mt-5 px-1 py-2  text-white" href="#">
                     <span className="mx-4 font-medium">Gráficos</span>
-                </a>
-                <ButtonLink to="/usuarios">Usuários</ButtonLink>
+                </a>                            
                 </nav>
             </div>
         </div>

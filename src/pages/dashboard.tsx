@@ -3,6 +3,7 @@ import 'tailwindcss/tailwind.css';
 import React, { useState, useEffect } from "react";
 import { HttpClient } from "@/infra/HttpClient";
 import Image from "next/image";
+import Sidebar from '@/components/sidebar';
 
 type Count = {
   id: number;
@@ -35,15 +36,13 @@ const formatDateTime = (date: string) => {
   const year = dateObj.getFullYear();
   const hours = dateObj.getHours();
   const minutes = dateObj.getMinutes();
-  const seconds = dateObj.getSeconds();
-
+  
   const dayStr = day < 10 ? `0${day}` : day;
   const monthStr = month < 10 ? `0${month}` : month;
   const hoursStr = hours < 10 ? `0${hours}` : hours;
   const minutesStr = minutes < 10 ? `0${minutes}` : minutes;
-  const secondsStr = seconds < 10 ? `0${seconds}` : seconds;
 
-  return `${dayStr}/${monthStr}/${year} ${hoursStr}:${minutesStr}:${secondsStr}`;
+  return `${dayStr}/${monthStr}/${year} ${hoursStr}:${minutesStr}`;
 };
 
 export default function Dashboard() {
@@ -83,6 +82,7 @@ export default function Dashboard() {
     const interval = setInterval(() => {
       fetchSpeed();
       fetchCount();
+      fetchPing();
     }, 60000);
     return () => clearInterval(interval);
   }, []);
@@ -105,7 +105,7 @@ export default function Dashboard() {
                   <Image src="/frango.png" width={50} height={50} alt={"asd"} />
                 </div>
 
-                <p className="text-xl">Escaldagem: {count.cont_esc}</p>
+                <p className="text-xl ">Escaldagem: {count.cont_esc}</p>
                 <p className="text-xl">Evisceração: {count.cont_evc}</p>
                 <p className="text-xl">Inspeção Federal: {count.cont_sif}</p>
                 <p className="text-xl">Nória Automática: {count.cont_aut}</p>
@@ -119,7 +119,8 @@ export default function Dashboard() {
                   <Image src="/raio.png" width={50} height={50} alt={"asd"} />
                 </div>
                 <p className="text-xl">
-                  Escaldagem/Evisceração: {speed.vel_esc_evc}
+                  Escaldagem/Evisceração: <span className={speed.vel_esc_evc < 144 ? 
+                  'text-red-500' : ''}>{speed.vel_esc_evc}</span>
                 </p>
                 <p className="text-xl">Inspeção Federal: {speed.vel_sif}</p>
                 <p className="text-xl">Nória Automática: {speed.vel_aut}</p>
@@ -144,29 +145,29 @@ export default function Dashboard() {
               <h3 className="text-2xl font-semibold mb-2">Sangria</h3>
               <div className="flex flex-col gap-4">
                 <div>
-                  <p className="text-xl">Sistema de Detecção de </p>
-                  <p className="text-xl">Frangos Mal Sangrados</p>
+                  <p className="text-xl flex w-full items-center justify-center">Sistema de Detecção</p>
+                  <p className="text-xl flex w-full items-center justify-center">Frangos Mal Sangrados</p>
                 </div>
 
                 <p className="text-xl text-center">Status</p>
                 {statusSangria ? (
-                  <div className="flex w-full items-center justify-center gap-2">
+                  <div className="text-xl flex w-full items-center justify-center gap-2">
                     <p className="">Conectado</p>
                     <Image
                       src="/true.png"
-                      width={20}
-                      height={20}
+                      width={25}
+                      height={25}
                       alt={"asd"}
                       className=""
                     />
                   </div>
                 ) : (
-                  <div className="flex w-full items-center justify-center gap-2">
+                  <div className="text-xl flex w-full items-center justify-center gap-2">
                     <p className="">Desconectado</p>
                     <Image
                       src="/false.png"
-                      width={20}
-                      height={20}
+                      width={25}
+                      height={25}
                       alt={"asd"}
                       className=""
                     />
@@ -187,6 +188,10 @@ export default function Dashboard() {
                 />
               </div>
               <h3 className="text-2xl font-semibold mb-2">Escaldagem</h3>
+            </div>
+            <div>
+              <p className="text-xl flex w-full items-center justify-center">Temperatura</p>
+              <p className="text-xl flex w-full items-center justify-center">Tanque de Escaldagem</p>
             </div>
           </div>
           <div className="bg-gray-900 shadow-md p-4 rounded-lg">
@@ -223,6 +228,12 @@ export default function Dashboard() {
                 />
               </div>
               <h3 className="text-2xl font-semibold mb-2">Pré Resfriamento</h3>
+                <div>
+                <p className="text-xl flex w-full items-center justify-center">Vazão Pré Chiller</p>
+                <p className="text-xl flex w-full items-center justify-center">Vazão Chiller 1</p>
+                <p className="text-xl flex w-full items-center justify-center">Vazão Chiller 2</p>
+                <p className="text-xl flex w-full items-center justify-center">Vazão Produção Gelo</p>
+              </div>
             </div>
           </div>
         </div>
@@ -230,3 +241,4 @@ export default function Dashboard() {
     </div>
   );
 }
+
