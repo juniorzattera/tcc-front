@@ -1,6 +1,7 @@
 "use client";
-import 'tailwindcss/tailwind.css';
+import "tailwindcss/tailwind.css";
 import React, { useState } from "react";
+import Sidebar from "@/components/sidebar";
 
 const EditModal = ({ user, onClose, onSave }) => {
   const [editedUser, setEditedUser] = React.useState({ ...user });
@@ -191,57 +192,62 @@ const UserList = () => {
   };
 
   return (
-    <div className="bg-gray-800 text-white min-h-screen flex flex-row p-6">
-      <div className=" mx-auto">
-        <div className="">
-          <div className="bg-gray-900 shadow-md p-6 rounded-lg">
-            <div className="flex flex-col items-center">
-              <h2 className="text-5xl font-semibold mb-2">Lista de Usuários</h2>
-            </div>
-            <div>
+    <div>
+      <Sidebar />
+      <div className="bg-gray-800 text-white min-h-screen flex flex-row p-6">
+        <div className=" mx-auto">
+          <div className="">
+            <div className="bg-gray-900 shadow-md p-6 rounded-lg">
+              <div className="flex flex-col items-center">
+                <h2 className="text-5xl font-semibold mb-2">
+                  Lista de Usuários
+                </h2>
+              </div>
+              <div>
                 <div className="flex justify-end">
-                <button
-                onClick={openCreateModal}
-                className="bg-blue-500 text-white px-4 py-2 rounded mb-4"
-              >
-                Criar Novo Usuário
-              </button>
+                  <button
+                    onClick={openCreateModal}
+                    className="bg-blue-500 text-white px-4 py-2 rounded mb-4"
+                  >
+                    Criar Novo Usuário
+                  </button>
                 </div>
-              
-              <ul>
-                {users.map((user) => (
-                  <li key={user.id} className="mb-2">
-                    {user.name} - {user.email}
-                    <button
-                      onClick={() => openDeleteModal(user)}
-                      className="ml-2 bg-red-500 text-white px-2 py-1 rounded"
-                    >
-                      Excluir
-                    </button>
-                  </li>
-                ))}
-              </ul>
 
-              {editModalOpen && (
-                <EditModal
-                  user={selectedUser}
-                  onClose={() => setEditModalOpen(false)}
-                  onSave={handleEditUser}
-                />
-              )}
-              {createModalOpen && (
-                <CreateModal
-                  onClose={() => setCreateModalOpen(false)}
-                  onSave={handleCreateUser}
-                />
-              )}
-              {deleteModalOpen && (
-                <DeleteModal
-                  user={selectedUser}
-                  onClose={() => setDeleteModalOpen(false)}
-                  onDelete={handleDeleteUser}
-                />
-              )}
+                <ul>
+                  {users.map((user) => (
+                    <li key={user.id} className="mb-2">
+                      {user.name} - {user.email}
+                      <button
+                        onClick={() => openDeleteModal(user)}
+                        className="ml-2 bg-red-500 text-white px-2 py-1 rounded"
+                      >
+                        Excluir
+                      </button>
+                    </li>
+                  ))}
+                </ul>
+
+                {editModalOpen && (
+                  <EditModal
+                    user={selectedUser}
+                    onClose={() => setEditModalOpen(false)}
+                    onSave={handleEditUser}
+                  />
+                )}
+                {createModalOpen && (
+                  <CreateModal
+                    onClose={() => setCreateModalOpen(false)}
+                    onSave={handleCreateUser}
+                  />
+                )}
+                {deleteModalOpen && (
+                  <DeleteModal
+                    user={selectedUser}
+                    onClose={() => setDeleteModalOpen(false)}
+                    onDelete={handleDeleteUser}
+                  />
+                )}
+              </div>
             </div>
           </div>
         </div>
