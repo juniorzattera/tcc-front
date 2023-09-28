@@ -57,8 +57,11 @@ function Grafico() {
   const [data, setData] = useState(initialData);
 
   const fetchSpeed = () => {
+    const now = new Date();
+    const yesterday = new Date(now.getTime() - 24 * 60 * 60 * 1000);
+
     httpClient
-      .get("/metrics/speeder?start=2023-08-21&end=2023-08-22")
+      .get(`/metrics/speeder?start=${yesterday.toISOString()}&end=${now.toISOString()}`)
       .then((response) => {
         if (response.length > 0) {
           const series = [
