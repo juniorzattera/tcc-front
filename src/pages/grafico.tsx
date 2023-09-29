@@ -10,9 +10,9 @@ const initialData = {
   options: {
     chart: {
       type: "area",
-      height: 600,
+      height: 500,
     },
-    colors: ["#008FFB", "#00E396", "#CED4DC", "#FF4560", "#775DD0"],
+    colors: ["#73BF69", "#F2CC0C", "#8AB8FF", "#FF780A", "#775DD0"],
     dataLabels: {
       enabled: false,
     },
@@ -22,7 +22,7 @@ const initialData = {
     fill: {
       type: "gradient",
       gradient: {
-        opacityFrom: 0.6,
+        opacityFrom: 0.2,
         opacityTo: 0.8,
       },
     },
@@ -32,7 +32,7 @@ const initialData = {
     },
     xaxis: {
       type: "datetime",
-    },
+    },    
     tooltip: {
       enabled: true,
       shared: true,
@@ -58,29 +58,49 @@ function Grafico() {
 
   const fetchSpeed = () => {
     const now = new Date();
-    const yesterday = new Date(now.getTime() - 24 * 60 * 60 * 1000);
+    const yesterday = new Date(now.getTime() - 4 * 60 * 60 * 1000);
 
     httpClient
       .get(`/metrics/speeder?start=${yesterday.toISOString()}&end=${now.toISOString()}`)
       .then((response) => {
         if (response.length > 0) {
           const series = [
-            "vel_esc_evc",
-            "vel_sif",
-            "vel_aut",
-            "vel_man1",
-            "vel_man2",
-          ].map((propertyName) => ({
-            name: propertyName,
-            data: response.map((item: any) => {
-              console.log(item[propertyName]);
-              return {
+            {
+              name: "Nória Escaldagem/Evisceração",
+              data: response.map((item) => ({
                 x: new Date(item.datahora).getTime(),
-                y: item[propertyName],
-              }
-            }),
-          }));
-
+                y: item.vel_esc_evc,
+              })),
+            },
+            {
+              name: "Nória Inspeção Federal",
+              data: response.map((item) => ({
+                x: new Date(item.datahora).getTime(),
+                y: item.vel_sif,
+              })),
+            },
+            {
+              name: "Nória Automática",
+              data: response.map((item) => ({
+                x: new Date(item.datahora).getTime(),
+                y: item.vel_aut,
+              })),
+            },
+            {
+              name: "Nória Manual 1",
+              data: response.map((item) => ({
+                x: new Date(item.datahora).getTime(),
+                y: item.vel_man1,
+              })),
+            },
+            {
+              name: "Nória Manual 2",
+              data: response.map((item) => ({
+                x: new Date(item.datahora).getTime(),
+                y: item.vel_man2,
+              })),
+            },
+          ];
           setData({
             ...data,
             series,
@@ -98,18 +118,27 @@ function Grafico() {
   return (
     <div>
       <Sidebar />
-      <div className="bg-gray-800 text-white min-h-screen flex flex-row p-6">
-        <div className="mx-auto">
-          <div style={{ width: "1300px", height: "600px" }} className="bg-white">
+      <div className="bg-gray-800 min-h-screen flex flex-row p-2">
+        <div className="container mx-auto">
+          <div className="">
+            <div className="bg-gray-900 shadow-md p-2 rounded-lg">
+              <div className="flex flex-col items-center">
+                <h2 className="text-5xl text-white font-semibold mb-2">
+                  Velocidades Nórias
+                </h2>
+          <div style={{ width: "1200px", height: "500px" }} className="bg-white">
             {data.series.length > 0 && (
               <Chart
                 options={data.options}
                 series={data.series}
                 type="area"
-                height={600}
-                width={1300}
+                height={500}
+                width={1200}
               />
             )}
+               </div>
+             </div>
+           </div>
           </div>
         </div>
       </div>

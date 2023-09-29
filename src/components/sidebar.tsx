@@ -56,7 +56,7 @@ const Sidebar = () => {
                             <nav>
                                 <h2 className="text-3xl font-semibold text-white mt-5 mx-4">Menu</h2>
 
-                                <ButtonLink to="/dashboard">Dashboard</ButtonLink>
+                                <ButtonLink to="/dashboard">Home</ButtonLink>
                                 
                                 <a className="flex items-center mt-5 px-1 py-2  text-white" href="#">
                                     <span className="mx-4 font-medium">Eviceração</span>

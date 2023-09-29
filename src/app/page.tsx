@@ -8,7 +8,7 @@ export default function Home() {
   return (
       <div className="flex flex-row ">
         <div className="flex-1 ">
-          <Login />
+          <Dashboard />
         </div>
       </div>
   );
