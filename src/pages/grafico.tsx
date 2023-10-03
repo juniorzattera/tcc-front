@@ -11,6 +11,7 @@ const initialData = {
     chart: {
       type: "area",
       height: 500,
+      foreColor: "#ffffff"
     },
     colors: ["#73BF69", "#F2CC0C", "#8AB8FF", "#FF780A", "#775DD0"],
     dataLabels: {
@@ -22,8 +23,8 @@ const initialData = {
     fill: {
       type: "gradient",
       gradient: {
-        opacityFrom: 0.2,
-        opacityTo: 0.8,
+        opacityFrom: 1,
+        opacityTo: 0,
       },
     },
     legend: {
@@ -126,7 +127,7 @@ function Grafico() {
                 <h2 className="text-5xl text-white font-semibold mb-2">
                   Velocidades Nórias
                 </h2>
-          <div style={{ width: "1200px", height: "500px" }} className="bg-white">
+          <div style={{ width: "1200px", height: "500px" }}>
             {data.series.length > 0 && (
               <Chart
                 options={data.options}
