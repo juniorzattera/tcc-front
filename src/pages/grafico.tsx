@@ -66,18 +66,20 @@ function Grafico() {
   };
 
   const handleSelectDate = (startDate: Date, endDate: Date) => {
-    console.log("buscandooo");
+    // console.log("buscandooo");
+    
+    fetchSpeed(startDate, endDate, true);
     setIsUpdating(false);
-    fetchSpeed(startDate, endDate);
   }
 
   const handleClear = () => {
+    // console.log("handleClear");
     setIsUpdating(true);
     fetchSpeed();
   }
 
-  const fetchSpeed = (startDate?: Date, endDate?: Date) => {
-    console.log("tentando atualizar");
+  const fetchSpeed = (startDate?: Date, endDate?: Date, flag? : boolean) => {
+    // console.log("tentando atualizar");
     const now = new Date();
     const yesterday = new Date(now.getTime() - 4 * 60 * 60 * 1000);
 
@@ -87,13 +89,13 @@ function Grafico() {
     if (!endDate) {
       endDate = now;
     }
-    const url = `/metrics/speeder?start=${startDate.toISOString()}&end=${endDate.toISOString()}`
+    const url = `/metrics/speeder?start=${startDate.toString()}&end=${endDate.toString()}`
     
-    if (!isUpdating) {
-      return 
-    }
+    if(!isUpdating && !flag) return;
+    
+    
 
-    console.log("atualizadnooo");
+    // console.log("atualizadnooo");
 
     httpClient.get(url).then((response) => {
       if (response.length > 0) {
@@ -138,6 +140,8 @@ function Grafico() {
           ...data,
           series,
         });
+      } else {
+        setData(initialData);
       }
     });
   };
@@ -146,7 +150,7 @@ function Grafico() {
     fetchSpeed();
     const interval = setInterval(fetchSpeed, 60000);
     return () => clearInterval(interval);
-  }, [httpClient]);
+  }, [httpClient, isUpdating]);
 
   return (
     <div>
