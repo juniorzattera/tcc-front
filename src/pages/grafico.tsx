@@ -11,7 +11,7 @@ const initialData = {
   options: {
     chart: {
       type: "area",
-      height: 500,
+      height: 480,
       foreColor: "#ffffff",
     },
     colors: ["#73BF69", "#F2CC0C", "#8AB8FF", "#FF780A", "#775DD0"],
@@ -66,8 +66,7 @@ function Grafico() {
   };
 
   const handleSelectDate = (startDate: Date, endDate: Date) => {
-    // console.log("buscandooo");
-    
+    // console.log("buscandooo");    
     fetchSpeed(startDate, endDate, true);
     setIsUpdating(false);
   }
@@ -92,9 +91,6 @@ function Grafico() {
     const url = `/metrics/speeder?start=${startDate.toString()}&end=${endDate.toString()}`
     
     if(!isUpdating && !flag) return;
-    
-    
-
     // console.log("atualizadnooo");
 
     httpClient.get(url).then((response) => {
@@ -166,13 +162,13 @@ function Grafico() {
                 <div>
                   <DateTimePicker handleClear={handleClear} handleSearch={handleSelectDate} />
                 </div>
-                <div style={{ width: "1200px", height: "500px" }}>
+                <div style={{ width: "1200px", height: "480px" }}>
                   {data.series.length > 0 && (
                     <Chart
                       options={data.options}
                       series={data.series}
                       type="area"
-                      height={500}
+                      height={480}
                       width={1200}
                     />
                   )}

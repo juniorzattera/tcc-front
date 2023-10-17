@@ -1,8 +1,13 @@
 import React, { useState, useEffect } from "react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
-import Clock from "react-clock";
 import "react-clock/dist/Clock.css";
+import { registerLocale, setDefaultLocale } from "react-datepicker";
+import pt from "date-fns/locale/pt";
+import { BsXCircle, BsSearch } from 'react-icons/bs';
+
+registerLocale("pt", pt);
+setDefaultLocale("pt");
 
 type Props = {
     handleSearch: (startDate: Date, endDate: Date) => void;
@@ -32,15 +37,16 @@ const DateTimePicker = (props: Props) => {
     props.handleClear();
   };
 
-  return (
+    return (
     <div className="space-y-4">
       <div className="flex items-center space-x-4">
-        <DatePicker
+        <DatePicker          
           selected={startDate}
           onChange={(date) => setStartDate(date)}
           showTimeSelect
           timeIntervals={15}
           dateFormat="dd/MM/yyyy HH:mm"
+          timeFormat="HH:mm"
           placeholderText="Data e hora inicial"
           minDate={endDate ? endDate : null}
           maxDate={endDate ? endDate : new Date()}
@@ -49,9 +55,9 @@ const DateTimePicker = (props: Props) => {
               ? new Date(endDate.getTime() - 4 * 60 * 60 * 1000)
               : undefined
           }
-          maxTime={endDate ? endDate : undefined}
+          maxTime={endDate ? endDate : undefined}          
         />
-        <DatePicker
+        <DatePicker          
           selected={!endDate ? startDate : endDate}
           onChange={(date) => setEndDate(date)}
           showTimeSelect
@@ -67,11 +73,13 @@ const DateTimePicker = (props: Props) => {
               : undefined
           }
         />
-        <div className="text-gray-300 cursor-pointer" onClick={handleClear}>
+        <div className="text-gray-300 cursor-pointer flex items-center" onClick={handleClear} style={{ margin: '10px' }}>
           Limpar
+          <BsXCircle size={20} style={{ marginLeft: '8px' }} />
         </div>
-        <div className="text-gray-300 cursor-pointer" onClick={handleData}>
+        <div className="text-gray-300 cursor-pointer flex items-center" onClick={handleData} style={{ margin: '10px' }}>
           Buscar
+          <BsSearch size={20} style={{ marginLeft: '8px' }} />
         </div>
       </div>
     </div>
@@ -79,3 +87,5 @@ const DateTimePicker = (props: Props) => {
 };
 
 export default DateTimePicker;
+
+

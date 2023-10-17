@@ -65,7 +65,6 @@ const Sidebar = () => {
                                 <a className="flex items-center mt-5 px-1 py-2  text-white" href="http://121.1.17.170" target="_blank">
                                     <span className="mx-4 font-medium">Marel</span>
                                 </a>
-
                                 <ButtonLink to="/grafico">Gráficos</ButtonLink>
                             </nav>
                         </div>
