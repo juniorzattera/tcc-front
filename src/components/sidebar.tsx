@@ -66,6 +66,7 @@ const Sidebar = () => {
                                     <span className="mx-4 font-medium">Marel</span>
                                 </a>
                                 <ButtonLink to="/grafico">Gráficos</ButtonLink>
+                                <ButtonLink to="/historico">Histórico de Abates</ButtonLink>
                             </nav>
                         </div>
                     )}
