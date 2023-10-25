@@ -213,6 +213,9 @@ export default function Dashboard() {
                 <p className="text-xl flex w-full items-center justify-center">
                   Tanque de Escaldagem
                 </p>
+                <p className="text-xl flex w-full items-center justify-center text-red-500">
+                  Sem dados
+                </p>
               </div>
             </div>
             <div className="bg-gray-900 shadow-md p-4 rounded-lg">
@@ -253,16 +256,22 @@ export default function Dashboard() {
                 </h3>
                 <div>
                   <p className="text-xl flex w-full items-center justify-center">
-                    Vazão Pré Chiller
+                    Temperatura Chiller 1
+                  </p>
+                  <p className="text-xl flex w-full items-center justify-center text-red-500">
+                  Sem dados
                   </p>
                   <p className="text-xl flex w-full items-center justify-center">
-                    Vazão Chiller 1
+                    Temperatura Chiller 2
                   </p>
-                  <p className="text-xl flex w-full items-center justify-center">
-                    Vazão Chiller 2
+                  <p className="text-xl flex w-full items-center justify-center text-red-500">
+                  Sem dados
                   </p>
                   <p className="text-xl flex w-full items-center justify-center">
                     Vazão Produção Gelo
+                  </p>
+                  <p className="text-xl flex w-full items-center justify-center text-red-500">
+                  Sem dados
                   </p>
                 </div>
               </div>

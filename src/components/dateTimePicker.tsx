@@ -40,14 +40,15 @@ const DateTimePicker = (props: Props) => {
     return (
     <div className="space-y-4">
       <div className="flex items-center space-x-4">
-        <DatePicker          
+        <DatePicker
+          className="text-center"          
           selected={startDate}
           onChange={(date) => setStartDate(date)}
           showTimeSelect
           timeIntervals={15}
           dateFormat="dd/MM/yyyy HH:mm"
           timeFormat="HH:mm"
-          placeholderText="Data e hora inicial"
+          placeholderText="Data e Hora Inicial"
           minDate={endDate ? endDate : null}
           maxDate={endDate ? endDate : new Date()}
           minTime={
@@ -57,13 +58,14 @@ const DateTimePicker = (props: Props) => {
           }
           maxTime={endDate ? endDate : undefined}          
         />
-        <DatePicker          
+        <DatePicker
+          className="text-center"         
           selected={!endDate ? startDate : endDate}
           onChange={(date) => setEndDate(date)}
           showTimeSelect
           timeIntervals={15}
           dateFormat="dd/MM/yyyy HH:mm"
-          placeholderText="Data e hora final"
+          placeholderText="Data e Hora Final"
           minDate={startDate ? startDate : null}
           maxDate={startDate ? startDate : new Date()}
           minTime={startDate ? startDate : undefined}

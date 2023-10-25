@@ -11,7 +11,7 @@ const initialData = {
   options: {
     chart: {
       type: "area",
-      height: 480,
+      height: 470,
       foreColor: "#ffffff",
     },
     colors: ["#73BF69", "#F2CC0C", "#8AB8FF", "#FF780A", "#775DD0"],
@@ -162,13 +162,13 @@ function Grafico() {
                 <div>
                   <DateTimePicker handleClear={handleClear} handleSearch={handleSelectDate} />
                 </div>
-                <div style={{ width: "1200px", height: "480px" }}>
+                <div style={{ width: "1200px", height: "470px" }}>
                   {data.series.length > 0 && (
                     <Chart
                       options={data.options}
                       series={data.series}
                       type="area"
-                      height={480}
+                      height={470}
                       width={1200}
                     />
                   )}

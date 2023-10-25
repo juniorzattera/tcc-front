@@ -58,14 +58,14 @@ function Historico() {
                   <table className="w-full border-collapse border border-gray-600">
                     <thead>
                       <tr className="bg-gray-800 text-white ">
-                        <th className="p-4 ">datahora</th>
-                        <th className="p-4 ">cont_esc</th>
-                        <th className="p-4 ">cont_evc</th>
-                        <th className="p-4 ">cont_sif</th>
-                        <th className="p-4 ">cont_aut</th>
-                        <th className="p-4 ">cont_man1</th>
-                        <th className="p-4 ">cont_man2</th>
-                        <th className="p-4 ">Porcentagem</th>
+                        <th className="p-4 ">Data</th>
+                        <th className="p-4 ">Contador Escaldagem</th>
+                        <th className="p-4 ">Contador Evisceração</th>
+                        <th className="p-4 ">Contador Inspeção Federal</th>
+                        <th className="p-4 ">Contador Nória Automática</th>
+                        <th className="p-4 ">Contador Nória Manual 1</th>
+                        <th className="p-4 ">Contador Nória Manual 2</th>
+                        <th className="p-4 ">Atendimento da Cota Diária</th>
                       </tr>
                     </thead>
                     <tbody>
@@ -73,21 +73,21 @@ function Historico() {
                         <tr
                           key={index}
                           className={
-                            index % 2 === 0 ? "bg-gray-200 " : "bg-white"
+                            index % 2 === 0 ? "bg-gray-700 " : "bg-gray-800"
                           }
                         >
-                          <td className="p-4 ">{formatDate(item.datahora)}</td>
-                          <td className="p-4">{item.cont_esc}</td>
-                          <td className="p-4">{item.cont_evc}</td>
-                          <td className="p-4">{item.cont_sif}</td>
-                          <td className="p-4">{item.cont_aut}</td>
-                          <td className="p-4">{item.cont_man1}</td>
-                          <td className="p-4">{item.cont_man2}</td>
+                          <td className="p-4 text-center text-white">{formatDate(item.datahora)}</td>
+                          <td className="p-4 text-center text-white">{item.cont_esc}</td>
+                          <td className="p-4 text-center text-white">{item.cont_evc}</td>
+                          <td className="p-4 text-center text-white">{item.cont_sif}</td>
+                          <td className="p-4 text-center text-white">{item.cont_aut}</td>
+                          <td className="p-4 text-center text-white">{item.cont_man1}</td>
+                          <td className="p-4 text-center text-white">{item.cont_man2}</td>
                           <td
                             className={
                               calcPercentage(item.cont_esc).value < 100
-                                ? "text-red-500 p-4"
-                                : "text-green-400 p-4"
+                                ? "text-red-500 text-center p-4 font-semibold"
+                                : "text-green-400 text-center p-4 font-semibold"
                             }
                           >
                             {calcPercentage(item.cont_esc).text}
@@ -105,5 +105,4 @@ function Historico() {
     </div>
   );
 }
-
 export default Historico;
