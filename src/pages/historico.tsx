@@ -4,6 +4,7 @@ import { HttpClient } from "@/infra/HttpClient";
 
 type dataType = {
   id: number;
+  cont_pendura: number;
   cont_esc: number;
   cont_evc: number;
   cont_sif: number;
@@ -59,6 +60,7 @@ function Historico() {
                     <thead>
                       <tr className="bg-gray-800 text-white ">
                         <th className="p-4 ">Data</th>
+                        <th className="p-4 ">Contador Pendura</th>
                         <th className="p-4 ">Contador Escaldagem</th>
                         <th className="p-4 ">Contador Evisceração</th>
                         <th className="p-4 ">Contador Inspeção Federal</th>
@@ -77,6 +79,7 @@ function Historico() {
                           }
                         >
                           <td className="p-4 text-center text-white">{formatDate(item.datahora)}</td>
+                          <td className="p-4 text-center text-white">{item.cont_pendura}</td>
                           <td className="p-4 text-center text-white">{item.cont_esc}</td>
                           <td className="p-4 text-center text-white">{item.cont_evc}</td>
                           <td className="p-4 text-center text-white">{item.cont_sif}</td>

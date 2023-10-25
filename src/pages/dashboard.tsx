@@ -7,6 +7,7 @@ import Sidebar from "@/components/sidebar";
 
 type Count = {
   id: number;
+  cont_pendura: number;
   cont_aut: number;
   cont_esc: number;
   cont_evc: number;
@@ -113,7 +114,7 @@ export default function Dashboard() {
                       alt={"asd"}
                     />
                   </div>
-
+                  <p className="text-xl ">Pendura: {count.cont_pendura}</p>
                   <p className="text-xl ">Escaldagem: {count.cont_esc}</p>
                   <p className="text-xl">Evisceração: {count.cont_evc}</p>
                   <p className="text-xl">Inspeção Federal: {count.cont_sif}</p>
