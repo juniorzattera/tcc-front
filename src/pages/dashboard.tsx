@@ -230,7 +230,7 @@ export default function Dashboard() {
                     className="mx-auto"
                   />
                 </div>
-                <h3 className="text-2xl font-semibold mb-2">Evisceração</h3>
+                <h3 className="text-2xl font-semibold mb-2">Evisceradora</h3>
                 <div className="grid grid-cols-6 gap-4 grid-rows-4">
                   {colors.map((color, index) => (
                     <div

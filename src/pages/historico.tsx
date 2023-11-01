@@ -5,6 +5,7 @@ import { HttpClient } from "@/infra/HttpClient";
 type dataType = {
   id: number;
   cont_pendura: number;
+  diferenca_pen_esc: number;
   cont_esc: number;
   cont_evc: number;
   cont_sif: number;
@@ -60,14 +61,15 @@ function Historico() {
                     <thead>
                       <tr className="bg-gray-800 text-white ">
                         <th className="p-4 ">Data</th>
-                        <th className="p-4 ">Contador Pendura</th>
-                        <th className="p-4 ">Contador Escaldagem</th>
-                        <th className="p-4 ">Contador Evisceração</th>
-                        <th className="p-4 ">Contador Inspeção Federal</th>
-                        <th className="p-4 ">Contador Nória Automática</th>
-                        <th className="p-4 ">Contador Nória Manual 1</th>
-                        <th className="p-4 ">Contador Nória Manual 2</th>
-                        <th className="p-4 ">Atendimento da Cota Diária</th>
+                        <th className="p-4 ">Pendura</th>
+                        <th className="p-4 ">Escaldagem</th>
+                        <th className="p-4 ">Evisceração</th>
+                        <th className="p-4 ">Inspeção Federal</th>
+                        <th className="p-4 ">Nória Automática</th>
+                        <th className="p-4 ">Nória Manual 1</th>
+                        <th className="p-4 ">Nória Manual 2</th>
+                        <th className="p-4 ">Atendimento Cota Diária</th>
+                        <th className="p-4 ">Perca Aves Pend. X Esc.</th>
                       </tr>
                     </thead>
                     <tbody>
@@ -88,13 +90,14 @@ function Historico() {
                           <td className="p-4 text-center text-white">{item.cont_man2}</td>
                           <td
                             className={
-                              calcPercentage(item.cont_esc).value < 100
+                              calcPercentage(item.cont_pendura).value < 100
                                 ? "text-red-500 text-center p-4 font-semibold"
                                 : "text-green-400 text-center p-4 font-semibold"
                             }
                           >
-                            {calcPercentage(item.cont_esc).text}
+                            {calcPercentage(item.cont_pendura).text}
                           </td>
+                          <td className="p-4 text-center text-red-500">{item.diferenca_pen_esc}</td>
                         </tr>
                       ))}
                     </tbody>
