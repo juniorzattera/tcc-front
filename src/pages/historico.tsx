@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import Sidebar from "@/components/sidebar";
 import { HttpClient } from "@/infra/HttpClient";
+import { withSession } from "@/services/auth/session";
 
 type dataType = {
   id: number;
@@ -80,14 +81,30 @@ function Historico() {
                             index % 2 === 0 ? "bg-gray-700 " : "bg-gray-800"
                           }
                         >
-                          <td className="p-4 text-center text-white">{formatDate(item.datahora)}</td>
-                          <td className="p-4 text-center text-white">{item.cont_pendura}</td>
-                          <td className="p-4 text-center text-white">{item.cont_esc}</td>
-                          <td className="p-4 text-center text-white">{item.cont_evc}</td>
-                          <td className="p-4 text-center text-white">{item.cont_sif}</td>
-                          <td className="p-4 text-center text-white">{item.cont_aut}</td>
-                          <td className="p-4 text-center text-white">{item.cont_man1}</td>
-                          <td className="p-4 text-center text-white">{item.cont_man2}</td>
+                          <td className="p-4 text-center text-white">
+                            {formatDate(item.datahora)}
+                          </td>
+                          <td className="p-4 text-center text-white">
+                            {item.cont_pendura}
+                          </td>
+                          <td className="p-4 text-center text-white">
+                            {item.cont_esc}
+                          </td>
+                          <td className="p-4 text-center text-white">
+                            {item.cont_evc}
+                          </td>
+                          <td className="p-4 text-center text-white">
+                            {item.cont_sif}
+                          </td>
+                          <td className="p-4 text-center text-white">
+                            {item.cont_aut}
+                          </td>
+                          <td className="p-4 text-center text-white">
+                            {item.cont_man1}
+                          </td>
+                          <td className="p-4 text-center text-white">
+                            {item.cont_man2}
+                          </td>
                           <td
                             className={
                               calcPercentage(item.cont_pendura).value < 100
@@ -97,7 +114,9 @@ function Historico() {
                           >
                             {calcPercentage(item.cont_pendura).text}
                           </td>
-                          <td className="p-4 text-center text-red-500">{item.diferenca_pen_esc}</td>
+                          <td className="p-4 text-center text-red-500">
+                            {item.diferenca_pen_esc}
+                          </td>
                         </tr>
                       ))}
                     </tbody>
@@ -112,3 +131,11 @@ function Historico() {
   );
 }
 export default Historico;
+
+export const getServerSideProps = withSession(async (ctx: any) => {
+  return {
+    props: {
+      session: ctx.req.session,
+    },
+  };
+});

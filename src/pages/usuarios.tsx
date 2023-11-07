@@ -2,6 +2,7 @@
 import "tailwindcss/tailwind.css";
 import React, { useState } from "react";
 import Sidebar from "@/components/sidebar";
+import { withSession } from "@/services/auth/session";
 
 const EditModal = ({ user, onClose, onSave }) => {
   const [editedUser, setEditedUser] = React.useState({ ...user });
@@ -257,3 +258,11 @@ const UserList = () => {
 };
 
 export default UserList;
+
+export const getServerSideProps = withSession(async (ctx: any) => {
+  return {
+    props: {
+      session: ctx.req.session,
+    },
+  };
+});

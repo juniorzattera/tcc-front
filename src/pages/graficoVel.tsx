@@ -3,6 +3,7 @@ import dynamic from "next/dynamic";
 import Sidebar from "@/components/sidebar";
 import { HttpClient } from "@/infra/HttpClient";
 import DateTimePicker from "@/components/dateTimePicker";
+import { withSession } from "@/services/auth/session";
 
 const Chart = dynamic(() => import("react-apexcharts"), { ssr: false });
 
@@ -66,18 +67,18 @@ function Grafico() {
   };
 
   const handleSelectDate = (startDate: Date, endDate: Date) => {
-    // console.log("buscandooo");    
+    // console.log("buscandooo");
     fetchSpeed(startDate, endDate, true);
     setIsUpdating(false);
-  }
+  };
 
   const handleClear = () => {
     // console.log("handleClear");
     setIsUpdating(true);
     fetchSpeed();
-  }
+  };
 
-  const fetchSpeed = (startDate?: Date, endDate?: Date, flag? : boolean) => {
+  const fetchSpeed = (startDate?: Date, endDate?: Date, flag?: boolean) => {
     // console.log("tentando atualizar");
     const now = new Date();
     const yesterday = new Date(now.getTime() - 4 * 60 * 60 * 1000);
@@ -88,9 +89,9 @@ function Grafico() {
     if (!endDate) {
       endDate = now;
     }
-    const url = `/metrics/speeder?start=${startDate.toString()}&end=${endDate.toString()}`
-    
-    if(!isUpdating && !flag) return;
+    const url = `/metrics/speeder?start=${startDate.toString()}&end=${endDate.toString()}`;
+
+    if (!isUpdating && !flag) return;
     // console.log("atualizadnooo");
 
     httpClient.get(url).then((response) => {
@@ -160,7 +161,10 @@ function Grafico() {
                   Velocidades Nórias
                 </h2>
                 <div>
-                  <DateTimePicker handleClear={handleClear} handleSearch={handleSelectDate} />
+                  <DateTimePicker
+                    handleClear={handleClear}
+                    handleSearch={handleSelectDate}
+                  />
                 </div>
                 <div style={{ width: "1200px", height: "470px" }}>
                   {data.series.length > 0 && (
@@ -183,3 +187,11 @@ function Grafico() {
 }
 
 export default Grafico;
+
+export const getServerSideProps = withSession(async (ctx: any) => {
+  return {
+    props: {
+      session: ctx.req.session,
+    },
+  };
+});
