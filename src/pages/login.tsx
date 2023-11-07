@@ -1,7 +1,8 @@
 "use client";
-import 'tailwindcss/tailwind.css';
+import "tailwindcss/tailwind.css";
 import React, { useState } from "react";
-import { HttpClient } from "@/infra/HttpClient";
+import { authService } from "@/services/auth/authService";
+import { useRouter } from "next/navigation";
 
 export default function Login() {
   const [username, setUsername] = useState("");
@@ -9,7 +10,7 @@ export default function Login() {
   const [usernameError, setUsernameError] = useState("");
   const [passwordError, setPasswordError] = useState("");
   const [loginError, setLoginError] = useState("");
-  const [httpClient] = useState(new HttpClient());
+  const router = useRouter();
 
   const handleLogin = async () => {
     // Reset previous error messages
@@ -28,11 +29,8 @@ export default function Login() {
 
     if (username.trim() !== "" && password.trim() !== "") {
       try {
-        const response = await httpClient.post("/auth/login", {
-          username,
-          password,
-        });
-        console.log(response);
+        await authService.login({ username, password });
+        router.push("/dashboard");
       } catch (error) {
         setLoginError("Usuário ou senha incorretos.");
       }

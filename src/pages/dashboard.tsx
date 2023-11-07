@@ -4,6 +4,7 @@ import React, { useState, useEffect } from "react";
 import { HttpClient } from "@/infra/HttpClient";
 import Image from "next/image";
 import Sidebar from "@/components/sidebar";
+import { withSession } from "@/services/auth/session";
 
 type Count = {
   id: number;
@@ -46,11 +47,10 @@ const formatDateTime = (date: string) => {
   return `${dayStr}/${monthStr}/${year} ${hoursStr}:${minutesStr}`;
 };
 
-export default function Dashboard() {
+function Dashboard(props: any) {
   const [httpClient] = useState(new HttpClient());
   const [count, setCount] = useState<Count>({} as Count);
   const [speed, setSpeed] = useState<Speed>({} as Speed);
-  const [usernameError, setUsernameError] = useState(false);
   const [statusSangria, setStatusSangria] = useState(false);
   const colors = Array.from({ length: 24 }, () =>
     Math.random() < 0.5 ? "bg-green-500" : "bg-red-500"
@@ -260,19 +260,19 @@ export default function Dashboard() {
                     Temperatura Chiller 1
                   </p>
                   <p className="text-xl flex w-full items-center justify-center text-red-500">
-                  Sem dados
+                    Sem dados
                   </p>
                   <p className="text-xl flex w-full items-center justify-center">
                     Temperatura Chiller 2
                   </p>
                   <p className="text-xl flex w-full items-center justify-center text-red-500">
-                  Sem dados
+                    Sem dados
                   </p>
                   <p className="text-xl flex w-full items-center justify-center">
                     Vazão Produção Gelo
                   </p>
                   <p className="text-xl flex w-full items-center justify-center text-red-500">
-                  Sem dados
+                    Sem dados
                   </p>
                 </div>
               </div>
@@ -283,3 +283,13 @@ export default function Dashboard() {
     </div>
   );
 }
+
+export default Dashboard;
+
+export const getServerSideProps = withSession(async (ctx: any) => {
+  return {
+    props: {
+      session: ctx.req.session,
+    },
+  };
+});
