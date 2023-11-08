@@ -90,7 +90,7 @@ function Dashboard(props: any) {
 
   return (
     <div>
-      <Sidebar />
+      <Sidebar {...props} />
       <div className="bg-gray-800 text-white min-h-screen flex flex-row p-6">
         <div className="container mx-auto">
           <div className="">

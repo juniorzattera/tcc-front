@@ -1,63 +1,14 @@
 "use client";
 import "tailwindcss/tailwind.css";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Sidebar from "@/components/sidebar";
 import { withSession } from "@/services/auth/session";
+import { HttpClient } from "@/infra/HttpClient";
 
-const EditModal = ({ user, onClose, onSave }) => {
-  const [editedUser, setEditedUser] = React.useState({ ...user });
+const CreateModal = ({ onClose, onSave }: { onClose: any; onSave: any }) => {
+  const [newUser, setNewUser] = useState({ username: "", password: "" });
 
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setEditedUser({ ...editedUser, [name]: value });
-  };
-
-  const handleSave = () => {
-    onSave(editedUser);
-    onClose();
-  };
-
-  return (
-    <div className="fixed top-0 left-0 w-full h-full flex items-center justify-center bg-gray-800 bg-opacity-50">
-      <div className="bg-white p-6 rounded shadow-lg">
-        <h2 className="text-xl font-bold mb-4">Editar Usuário</h2>
-        <div className="mb-4">
-          <label htmlFor="name" className="block text-gray-600">
-            Nome:
-          </label>
-          <input
-            type="text"
-            id="name"
-            name="name"
-            value={editedUser.name}
-            onChange={handleChange}
-            className="border border-gray-400 rounded w-full py-2 px-3"
-          />
-        </div>
-        {/* Adicione mais campos de edição conforme necessário */}
-        <div className="flex justify-end">
-          <button
-            onClick={handleSave}
-            className="bg-blue-500 text-white px-4 py-2 rounded"
-          >
-            Salvar
-          </button>
-          <button
-            onClick={onClose}
-            className="ml-2 border border-gray-400 px-4 py-2 rounded"
-          >
-            Fechar
-          </button>
-        </div>
-      </div>
-    </div>
-  );
-};
-
-const CreateModal = ({ onClose, onSave }) => {
-  const [newUser, setNewUser] = React.useState({ name: "", email: "" });
-
-  const handleChange = (e) => {
+  const handleChange = (e: { target: { name: string; value: any } }) => {
     const { name, value } = e.target;
     setNewUser({ ...newUser, [name]: value });
   };
@@ -69,32 +20,32 @@ const CreateModal = ({ onClose, onSave }) => {
 
   return (
     <div className="fixed top-0 left-0 w-full h-full flex items-center justify-center bg-gray-800 bg-opacity-50">
-      <div className="bg-white p-6 rounded shadow-lg">
+      <div className="bg-gray-700 p-6 rounded shadow-lg">
         <h2 className="text-xl font-bold mb-4">Criar Usuário</h2>
         <div className="mb-4">
-          <label htmlFor="name" className="block text-gray-600">
+          <label htmlFor="username" className="block ">
             Nome:
           </label>
           <input
             type="text"
-            id="name"
-            name="name"
-            value={newUser.name}
+            id="username"
+            name="username"
+            value={newUser.username}
             onChange={handleChange}
-            className="border border-gray-400 rounded w-full py-2 px-3"
+            className="border text-gray-700 border-gray-400 rounded w-full py-2 px-3"
           />
         </div>
         <div className="mb-4">
-          <label htmlFor="email" className="block text-gray-600">
-            Email:
+          <label htmlFor="role" className="block ">
+            Senha:
           </label>
           <input
-            type="email"
-            id="email"
-            name="email"
-            value={newUser.email}
+            type="password"
+            id="password"
+            name="password"
+            value={newUser.password}
             onChange={handleChange}
-            className="border border-gray-400 rounded w-full py-2 px-3"
+            className="border text-gray-700 border-gray-400 rounded w-full py-2 px-3"
           />
         </div>
         {/* Adicione mais campos de criação conforme necessário */}
@@ -117,7 +68,15 @@ const CreateModal = ({ onClose, onSave }) => {
   );
 };
 
-const DeleteModal = ({ user, onClose, onDelete }) => {
+const DeleteModal = ({
+  user,
+  onClose,
+  onDelete,
+}: {
+  user: any;
+  onClose: any;
+  onDelete: any;
+}) => {
   const handleDelete = () => {
     onDelete(user.id);
     onClose();
@@ -125,9 +84,9 @@ const DeleteModal = ({ user, onClose, onDelete }) => {
 
   return (
     <div className="fixed top-0 left-0 w-full h-full flex items-center justify-center bg-gray-800 bg-opacity-50">
-      <div className="bg-white p-6 rounded shadow-lg">
+      <div className="bg-gray-700 p-6 rounded shadow-lg">
         <h2 className="text-xl font-bold mb-4">Excluir Usuário</h2>
-        <p>Você tem certeza de que deseja excluir o usuário "{user.name}"?</p>
+        <p>Você tem certeza de que deseja excluir o usuário {user.username}?</p>
         <div className="flex justify-end">
           <button
             onClick={handleDelete}
@@ -146,55 +105,66 @@ const DeleteModal = ({ user, onClose, onDelete }) => {
     </div>
   );
 };
-const UserList = () => {
-  const [users, setUsers] = useState([
-    { id: 1, name: "Usuário 1", email: "usuario1@example.com" },
-    { id: 2, name: "Usuário 2", email: "usuario2@example.com" },
-    // Adicione mais usuários conforme necessário
-  ]);
+
+const UserList = (props: any) => {
+  const [users, setUsers] = useState<
+    { username: string; role: string; id: number }[]
+  >([]);
 
   const [selectedUser, setSelectedUser] = useState(null);
-  const [editModalOpen, setEditModalOpen] = useState(false);
   const [createModalOpen, setCreateModalOpen] = useState(false);
   const [deleteModalOpen, setDeleteModalOpen] = useState(false);
+  const [httpClient] = useState(new HttpClient());
+  const [loading, setLoading] = useState(false);
 
-  const openEditModal = (user) => {
-    setSelectedUser(user);
-    setEditModalOpen(true);
+  useEffect(() => {
+    handleGetUsers();
+  }, [loading]);
+
+  const handleGetUsers = async () => {
+    try {
+      const response = await httpClient.get("/users");
+      console.log(response);
+      setUsers(response);
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   const openCreateModal = () => {
     setCreateModalOpen(true);
   };
 
-  const openDeleteModal = (user) => {
+  const openDeleteModal = (user: any) => {
     setSelectedUser(user);
     setDeleteModalOpen(true);
   };
 
-  const handleEditUser = (editedUser) => {
-    // Atualize o usuário na lista de usuários (faça a chamada à API, se necessário)
-    const updatedUsers = users.map((user) =>
-      user.id === editedUser.id ? editedUser : user
-    );
-    setUsers(updatedUsers);
+  const handleCreateUser = async (newUser: any) => {
+    try {
+      setLoading(true);
+      await httpClient.post("/users", newUser);
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setLoading(false);
+    }
   };
 
-  const handleCreateUser = (newUser) => {
-    // Crie um novo usuário na lista de usuários (faça a chamada à API, se necessário)
-    const newUserWithId = { ...newUser, id: users.length + 1 };
-    setUsers([...users, newUserWithId]);
-  };
-
-  const handleDeleteUser = (userId) => {
-    // Exclua o usuário da lista de usuários (faça a chamada à API, se necessário)
-    const updatedUsers = users.filter((user) => user.id !== userId);
-    setUsers(updatedUsers);
+  const handleDeleteUser = async (userId: number) => {
+    try {
+      setLoading(true);
+      await httpClient.delete(`/users/${userId}`);
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
     <div>
-      <Sidebar />
+      <Sidebar {...props} />
       <div className="bg-gray-800 text-white min-h-screen flex flex-row p-6">
         <div className=" mx-auto">
           <div className="">
@@ -213,42 +183,58 @@ const UserList = () => {
                     Criar Novo Usuário
                   </button>
                 </div>
-
-                <ul>
-                  {users.map((user) => (
-                    <li key={user.id} className="mb-2">
-                      {user.name} - {user.email}
-                      <button
-                        onClick={() => openDeleteModal(user)}
-                        className="ml-2 bg-red-500 text-white px-2 py-1 rounded"
+                <table className="w-full border-collapse border border-gray-600">
+                  <thead>
+                    <tr className="bg-gray-800 text-white ">
+                      <th className="p-4 ">ID</th>
+                      <th className="p-4 ">Nome</th>
+                      <th className="p-4 ">Cargo</th>
+                      <th className="p-4 ">Action</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {users.map((item, index) => (
+                      <tr
+                        key={index}
+                        className={
+                          index % 2 === 0 ? "bg-gray-700 " : "bg-gray-800"
+                        }
                       >
-                        Excluir
-                      </button>
-                    </li>
-                  ))}
-                </ul>
-
-                {editModalOpen && (
-                  <EditModal
-                    user={selectedUser}
-                    onClose={() => setEditModalOpen(false)}
-                    onSave={handleEditUser}
-                  />
-                )}
-                {createModalOpen && (
-                  <CreateModal
-                    onClose={() => setCreateModalOpen(false)}
-                    onSave={handleCreateUser}
-                  />
-                )}
-                {deleteModalOpen && (
-                  <DeleteModal
-                    user={selectedUser}
-                    onClose={() => setDeleteModalOpen(false)}
-                    onDelete={handleDeleteUser}
-                  />
-                )}
+                        <td className="p-4 text-center text-white">
+                          {item.id}
+                        </td>
+                        <td className="p-4 text-center text-white">
+                          {item.username}
+                        </td>
+                        <td className="p-4 text-center text-white">
+                          {item.role}
+                        </td>
+                        <td className="p-4 text-center text-white">
+                          <button
+                            onClick={() => openDeleteModal(item)}
+                            className="ml-2 bg-red-500 text-white px-2 py-1 rounded"
+                          >
+                            Excluir
+                          </button>
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
               </div>
+              {createModalOpen && (
+                <CreateModal
+                  onClose={() => setCreateModalOpen(false)}
+                  onSave={handleCreateUser}
+                />
+              )}
+              {deleteModalOpen && (
+                <DeleteModal
+                  user={selectedUser}
+                  onClose={() => setDeleteModalOpen(false)}
+                  onDelete={handleDeleteUser}
+                />
+              )}
             </div>
           </div>
         </div>

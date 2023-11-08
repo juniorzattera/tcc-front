@@ -16,7 +16,7 @@ type dataType = {
   datahora: string;
 };
 
-function Historico() {
+function Historico(props: any) {
   const [data, setData] = useState<dataType[]>([]);
   const [httpClient] = useState(new HttpClient());
 
@@ -48,7 +48,7 @@ function Historico() {
 
   return (
     <div>
-      <Sidebar />
+      <Sidebar {...props} />
       <div className="bg-gray-800 min-h-screen flex flex-row p-2">
         <div className="container mx-auto">
           <div className="">

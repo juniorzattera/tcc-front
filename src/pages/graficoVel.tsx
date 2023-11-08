@@ -55,7 +55,7 @@ const initialData = {
   },
 };
 
-function Grafico() {
+function Grafico(props: any) {
   const [httpClient] = useState(new HttpClient());
   const [data, setData] = useState(initialData);
   const [isUpdating, setIsUpdating] = useState(true);
@@ -151,7 +151,7 @@ function Grafico() {
 
   return (
     <div>
-      <Sidebar />
+      <Sidebar {...props} />
       <div className="bg-gray-800 min-h-screen flex flex-row p-2">
         <div className="container mx-auto">
           <div className="">
