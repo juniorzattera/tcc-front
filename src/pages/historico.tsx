@@ -7,6 +7,7 @@ type dataType = {
   id: number;
   cont_pendura: number;
   diferenca_pen_esc: number;
+  diferenca_evc_sif: number;
   cont_esc: number;
   cont_evc: number;
   cont_sif: number;
@@ -61,16 +62,17 @@ function Historico(props: any) {
                   <table className="w-full border-collapse border border-gray-600">
                     <thead>
                       <tr className="bg-gray-800 text-white ">
-                        <th className="p-4 ">Data</th>
-                        <th className="p-4 ">Pendura</th>
-                        <th className="p-4 ">Escaldagem</th>
-                        <th className="p-4 ">Evisceração</th>
-                        <th className="p-4 ">Inspeção Federal</th>
-                        <th className="p-4 ">Nória Automática</th>
-                        <th className="p-4 ">Nória Manual 1</th>
-                        <th className="p-4 ">Nória Manual 2</th>
-                        <th className="p-4 ">Atendimento Cota Diária</th>
-                        <th className="p-4 ">Perca Aves Pend. X Esc.</th>
+                        <th className="p-3 ">Data</th>
+                        <th className="p-3 ">Pendura</th>
+                        <th className="p-3 ">Escaldagem</th>
+                        <th className="p-3 ">Evisceração</th>
+                        <th className="p-3 ">Inspeção Federal</th>
+                        <th className="p-3 ">Nória Automática</th>
+                        <th className="p-3 ">Nória Manual 1</th>
+                        <th className="p-3 ">Nória Manual 2</th>
+                        <th className="p-3 ">Atendimento Cota Diária</th>
+                        <th className="p-3 ">Perca Aves Pend X Esc</th>
+                        <th className="p-3 ">Perca Aves Evc X SIF</th>
                       </tr>
                     </thead>
                     <tbody>
@@ -116,6 +118,9 @@ function Historico(props: any) {
                           </td>
                           <td className="p-4 text-center text-red-500">
                             {item.diferenca_pen_esc}
+                          </td>
+                          <td className="p-4 text-center text-red-500">
+                            {item.diferenca_evc_sif}
                           </td>
                         </tr>
                       ))}

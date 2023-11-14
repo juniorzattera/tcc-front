@@ -19,8 +19,8 @@ const CreateModal = ({ onClose, onSave }: { onClose: any; onSave: any }) => {
   };
 
   return (
-    <div className="fixed top-0 left-0 w-full h-full flex items-center justify-center bg-gray-800 bg-opacity-50">
-      <div className="bg-gray-700 p-6 rounded shadow-lg">
+    <div className="fixed top-0 left-0 w-full h-full flex items-center justify-center bg-gray-800 bg-opacity-50 ">
+      <div className="bg-gray-700 p-6 rounded shadow-lg ">
         <h2 className="text-xl font-bold mb-4">Criar Usuário</h2>
         <div className="mb-4">
           <label htmlFor="username" className="block ">
@@ -47,8 +47,7 @@ const CreateModal = ({ onClose, onSave }: { onClose: any; onSave: any }) => {
             onChange={handleChange}
             className="border text-gray-700 border-gray-400 rounded w-full py-2 px-3"
           />
-        </div>
-        {/* Adicione mais campos de criação conforme necessário */}
+        </div>      
         <div className="flex justify-end">
           <button
             onClick={handleSave}
@@ -183,13 +182,13 @@ const UserList = (props: any) => {
                     Criar Novo Usuário
                   </button>
                 </div>
-                <table className="w-full border-collapse border border-gray-600">
+                <table className="w-full border-collapse border border-gray-600 ">
                   <thead>
                     <tr className="bg-gray-800 text-white ">
                       <th className="p-4 ">ID</th>
                       <th className="p-4 ">Nome</th>
-                      <th className="p-4 ">Cargo</th>
-                      <th className="p-4 ">Action</th>
+                      <th className="p-4 ">Privilégio</th>
+                      <th className="p-4 ">Ação</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -200,16 +199,16 @@ const UserList = (props: any) => {
                           index % 2 === 0 ? "bg-gray-700 " : "bg-gray-800"
                         }
                       >
-                        <td className="p-4 text-center text-white">
+                        <td className="p-4 px-20 text-center text-white">
                           {item.id}
                         </td>
-                        <td className="p-4 text-center text-white">
+                        <td className="p-4 px-20 text-center text-white">
                           {item.username}
                         </td>
-                        <td className="p-4 text-center text-white">
+                        <td className="p-4 px-20 text-center text-white">
                           {item.role}
                         </td>
-                        <td className="p-4 text-center text-white">
+                        <td className="p-4 px-20 text-center text-white">
                           <button
                             onClick={() => openDeleteModal(item)}
                             className="ml-2 bg-red-500 text-white px-2 py-1 rounded"
